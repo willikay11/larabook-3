@@ -7,10 +7,10 @@ $I->amOnPage('/');
 $I->click('Sign Up');
 $I->seeCurrentUrlEquals('/register');
 
-$I->fillField('Username','william');
-$I->fillField('Email','willikay11@gmail.com');
-$I->fillField('Password','kamuyu');
-$I->fillField('Password_Confirmation','kamuyu');
+$I->fillField('username','william');
+$I->fillField('email','willikay11@gmail.com');
+$I->fillField('password','kamuyu');
+$I->fillField('password_confirmation','kamuyu');
 $I->click('Sign Up');
 
 $I->seeCurrentUrlEquals('');

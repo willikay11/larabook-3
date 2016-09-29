@@ -1,7 +1,27 @@
 <?php
 
-class RegistrationController extends \BaseController {
+use Larabook\Forms\RegistrationForm;
 
+use Larabook\Core\CommandBus;
+
+use Larabook\Registration\RegisterUserCommand;
+
+use Laracasts\Flash\Flash;
+
+
+class RegistrationController extends BaseController {
+
+
+	use CommandBus;
+
+	private $registrationForm;
+
+	function __construct(RegistrationForm $registrationForm)
+	{
+		$this->registrationForm = $registrationForm;
+
+		$this->beforeFilter('guest');
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -31,10 +51,15 @@ class RegistrationController extends \BaseController {
 	 */
 	public function store()
 	{
-		$user  = User::create(
-			Input::only('Username','Email','Password')
-		);
+		$this->registrationForm->validate(Input::all());
+
+		extract(Input::only('Username', 'Email', 'Password'));
+
+		$user = $this->execute(new RegisterUserCommand("John", "john@gmail.com", "john"));
+
 		Auth::login($user);
+
+		Flash::message("Registration Successful!");
 
 		return Redirect::home();
 	}

@@ -10,6 +10,9 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Event::listen('Larabook.Registration.Events.UserRegistered', function(){
+
+});
 
 Route::get('/',[
     'as' => 'home',

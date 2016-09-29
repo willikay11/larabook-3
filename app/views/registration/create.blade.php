@@ -2,29 +2,39 @@
 
 @section('content')
     <h1>Register!</h1>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                     <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     {{ Form::open(['route' => 'register_path']) }}
      <div class="form-group">
-         {{ Form::label('Username', 'Username:') }}
-         {{ Form::text('Username', null, ['class' => 'form-control']) }}
+         {{ Form::label('username', 'Username:') }}
+         {{ Form::text('username', null, ['class' => 'form-control']) }}
      </div>
 
     <div class="form-group">
         {{ Form::label('email', 'Email:') }}
-        {{ Form::text('Email', null, ['class' => 'form-control']) }}
+        {{ Form::text('email', null, ['class' => 'form-control']) }}
     </div>
 
     <div class="form-group">
         {{ Form::label('password', 'Password:') }}
-        {{ Form::password('Password', ['class' => 'form-control']) }}
+        {{ Form::password('password', ['class' => 'form-control']) }}
     </div>
 
     <div class="form-group">
-        {{ Form::label('password_confirmation', 'Password_confirmation:') }}
-        {{ Form::password('Password_Confirmation', ['class' => 'form-control']) }}
+        {{ Form::label('password_confirmation', 'Password confirmation:') }}
+        {{ Form::password('password_confirmation', ['class' => 'form-control']) }}
     </div>
-    {{ Form::close() }}
 
     <div class="form-group">
         {{ Form::submit('Sign Up', ['class' => 'btn btn-primary']) }}
     </div>
+    {{ Form::close() }}
 @stop
