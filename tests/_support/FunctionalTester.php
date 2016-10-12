@@ -1,6 +1,8 @@
 <?php
 
 
+use Laracasts\TestDummy\Factory as TestDummy;
+
 /**
  * Inherited Methods
  * @method void wantTo($text)
