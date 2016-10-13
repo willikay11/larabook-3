@@ -30,3 +30,11 @@ body {
     overflow: hidden; }
     .status-post .status-post-submit .btn {
       float: right; }
+
+.users {
+  margin-bottom: 3em; }
+
+.user-block {
+  text-align: center; }
+  .user-block .avatar {
+    margin: auto; }

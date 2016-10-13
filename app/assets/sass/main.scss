@@ -3,10 +3,10 @@ body{
 }
 
 .nav-gravatar{
-  float: left;
-  position: relative;
-  top: -6px;
-  left: -8px;
+  float    : left;
+  position : relative;
+  top      : -6px;
+  left : -10px;
   border: 1px solid #555;
 }
 
@@ -40,5 +40,18 @@ body{
     .btn{
       float: right;
     }
+  }
+}
+
+//Users List
+.users{
+  margin-bottom: 3em;
+}
+
+.user-block{
+  text-align: center;
+
+  .avatar{
+    margin: auto;
   }
 }

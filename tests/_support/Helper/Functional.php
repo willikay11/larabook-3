@@ -12,9 +12,10 @@ class Functional extends \Codeception\Module
     public function signIn()
     {
         $email = 'email@example.com';
+        $username = 'Foobar';
         $password = 'pass';
 
-        $this->haveAnAccount(compact('email', 'password'));
+        $this->haveAnAccount(compact('username','email', 'password'));
 
         $I = $this->getModule('Laravel4');
 
