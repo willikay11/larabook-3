@@ -7,10 +7,7 @@ class StatusRepository
 
     public function getAllForUser(User $user)
     {
-//        dd($user->statuses);
-//        return $user->statuses()->with('user')->latest()->get();
-//        return $user->statuses()->get();
-        return $user->statuses;
+        return $user->statuses()->with('user')->latest()->get();
     }
     
     /*

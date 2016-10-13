@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent;
 use Illuminate\Support\Facades\Hash;
 use Laracasts\Commander\Events\EventGenerator;
 use Larabook\Registration\Events\UserRegistered;
+use Laracasts\Presenter\PresentableTrait;
 
 class User extends \Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait, EventGenerator;
+	use UserTrait, RemindableTrait, EventGenerator, PresentableTrait;
 
 
 	protected $fillable = ['username','email','password'];
@@ -21,6 +22,13 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
+
+
+	/**
+	 * Path to the presenter
+	 * @var string
+     */
+	protected $presenter = 'Larabook\Users\UserPresenter';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
