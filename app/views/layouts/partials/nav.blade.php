@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ route('home') }}">Larabook 3</a>
+            <a class="navbar-brand" href="{{ Auth::check() ? route('statuses_path') :route('home') }}">Larabook 3</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -30,10 +30,12 @@
             <ul class="nav navbar-nav navbar-right">
                 @if($currentUser)
                 <li class="dropdown">
-                    
-                    <img class="nav-gravatar" src="{{ $currentUser->present()->gravatar }}"  alt="{{ $currentUser->username }}">
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ $currentUser->username }} <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img class="nav-gravatar" src="{{ $currentUser->present()->gravatar }}" alt="{{ $currentUser->username }}"/>
+                        {{ $currentUser->username }} <span class="caret"></span>
+                    </a>
+
                     <ul class="dropdown-menu">
                         <li>{{ link_to_route('profile_path', 'My Profile', $currentUser->username) }}</li>
                         <li><a href="#">Another action</a></li>

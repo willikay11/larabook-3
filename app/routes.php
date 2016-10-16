@@ -10,9 +10,6 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Event::listen('Larabook.Registration.Events.UserRegistered', function(){
-
-});
 
 Route::get('/',[
     'as' => 'home',
@@ -74,3 +71,22 @@ Route::get('@{username}', [
     'as' => 'profile_path',
     'uses' => 'UsersController@show'
 ]);
+
+
+/*
+ * Follows
+ */
+Route::post('follows', [
+    'as' => 'follows_path_store',
+    'uses' => 'FollowsController@store'
+]);
+
+Route::delete('follows/{id}', [
+    'as'   => 'follows_path',
+    'uses' => 'FollowsController@destroy'
+]);
+
+/*
+ * Reset
+ */
+Route::controller('password', 'RemindersController');

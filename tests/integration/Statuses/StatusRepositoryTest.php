@@ -65,4 +65,6 @@ class StatusRepositoryTest extends \Codeception\TestCase\Test
         // And the status should have the correct user_id
         $this->assertEquals($user->id, $savedStatus->user_id);
     }
+
+
 }

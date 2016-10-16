@@ -6,13 +6,14 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent;
 use Illuminate\Support\Facades\Hash;
+use Larabook\Registration\Events\UserHasRegistered;
+use Larabook\Users\FollowableTrait;
 use Laracasts\Commander\Events\EventGenerator;
-use Larabook\Registration\Events\UserRegistered;
 use Laracasts\Presenter\PresentableTrait;
 
 class User extends \Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait, EventGenerator, PresentableTrait;
+	use UserTrait, RemindableTrait, EventGenerator, PresentableTrait, FollowableTrait;
 
 
 	protected $fillable = ['username','email','password'];
@@ -41,6 +42,9 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 	/*
 	 * Passwords must always be hashed
 	 */
+	/**
+	 * @param $password
+     */
 	public function setPasswordAttribute($password)
 	{
 		$this->attributes['password'] = Hash::make($password);
@@ -50,18 +54,27 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 	 * A user has many status
 	 */
 
+	/**
+	 * @return mixed
+     */
 	public function statuses()
 	{
-		return $this->hasMany('Larabook\Statuses\Status');
+		return $this->hasMany('Larabook\Statuses\Status')->latest();
 	}
 	/*
 	 * Register a new user
 	 */
+	/**
+	 * @param $username
+	 * @param $email
+	 * @param $password
+	 * @return static
+     */
 	public static function register($username, $email, $password)
 	{
 		$user = new static(compact('username','email','password'));
 
-		$user->raise(new UserRegistered($user));
+		$user->raise(new UserHasRegistered($user));
 
 		return $user;
 	}
@@ -73,8 +86,11 @@ class User extends \Eloquent implements UserInterface, RemindableInterface {
 	 * @param User $user
 	 * @return bool
      */
-	public function is(User $user)
+	public function is($user)
 	{
+		if(is_null($user)) return false;
+
 		return $this->username == $user->username;
 	}
+
 }

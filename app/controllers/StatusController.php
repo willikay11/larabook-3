@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
-use Larabook\Core\CommandBus;
 use Larabook\Forms\PublishStatusForm;
 use Larabook\Statuses\PublishStatusCommand;
 use Larabook\Statuses\StatusRepository;
@@ -11,7 +10,6 @@ use Larabook\Statuses\StatusRepository;
  */
 class StatusController extends \BaseController {
 
-	use CommandBus;
 
 	/**
 	 * @var StatusRepository
@@ -41,7 +39,7 @@ class StatusController extends \BaseController {
 	 */
 	public function index()
 	{
-		$statuses = $this->statusRepository->getAllForUser(Auth::user());
+		$statuses = $this->statusRepository->getFeedForUser(Auth::user());
 
 		return View::make('statuses.index', compact('statuses'));
 	}
@@ -65,11 +63,13 @@ class StatusController extends \BaseController {
 	 */
 	public function store()
 	{
-		$this->publishStatusForm->validate(Input::only('body'));
+		$input = Input::get();
 
-		$command = new PublishStatusCommand(Input::get('body'), Auth::user()->id);
+		$input['userId'] = Auth::id();
 
-		$this->execute($command);
+		$this->publishStatusForm->validate($input);
+
+		$this->execute(PublishStatusCommand::class, $input);
 
 		Flash::message('Your status has been updated!');
 

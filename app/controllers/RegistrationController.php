@@ -2,8 +2,6 @@
 
 use Larabook\Forms\RegistrationForm;
 
-use Larabook\Core\CommandBus;
-
 use Larabook\Registration\RegisterUserCommand;
 
 use Laracasts\Flash\Flash;
@@ -11,8 +9,6 @@ use Laracasts\Flash\Flash;
 
 class RegistrationController extends BaseController {
 
-
-	use CommandBus;
 
 	private $registrationForm;
 
@@ -53,12 +49,7 @@ class RegistrationController extends BaseController {
 	{
 		$this->registrationForm->validate(Input::all());
 
-		extract(Input::only('username', 'email', 'password'));
-
-		$user = $this->execute (
-			new RegisterUserCommand($username, $email, $password)
-		);
-
+		$user = $this->execute(RegisterUserCommand::class);
 
 		Auth::login($user);
 

@@ -1,5 +1,4 @@
-<?php
-namespace Larabook\Registration;
+<?php namespace Larabook\Registration;
 
 class RegisterUserCommand
 {
