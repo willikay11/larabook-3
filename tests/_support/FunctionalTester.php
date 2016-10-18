@@ -1,9 +1,10 @@
 <?php
 
 
+use Laracasts\TestDummy\Factory as TestDummy;
+
 /**
  * Inherited Methods
- * @method void wantToTest($text)
  * @method void wantTo($text)
  * @method void execute($callable)
  * @method void expectTo($prediction)
