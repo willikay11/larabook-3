@@ -1,5 +1,6 @@
 <?php namespace Larabook\Statuses;
 
+use Larabook\Statuses\Comment;
 use Larabook\Users\User;
 
 class StatusRepository
@@ -30,6 +31,21 @@ class StatusRepository
             ->save($status);
     }
 
+
+    /**
+     * @param $userId
+     * @param $statusId
+     * @param $body
+     * @return static
+     */
+    public function leaveComment($userId, $statusId, $body)
+    {
+        $comment = Comment::leave($body, $statusId);
+
+        User::findOrFail($userId)->comments()->save($comment);
+
+        return $comment;
+    }
     /**
      * get the feed for a user
      *
@@ -42,6 +58,6 @@ class StatusRepository
 
         $userIds[] = $user->id;
 
-        return Status::whereIn('user_id', $userIds)->latest()->get();
+        return Status::with('comments')->whereIn('user_id', $userIds)->latest()->get();
     }
 }

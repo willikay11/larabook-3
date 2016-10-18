@@ -12,6 +12,6 @@ $I->postAStatus('My new status!');
 
 $I->click('My Profile');
 
-$I->seeCurrentUrlEquals('/@foobar');
+$I->seeCurrentUrlEquals('/@Foobar');
 
 $I->see('My new status!');

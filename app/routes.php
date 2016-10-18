@@ -11,30 +11,30 @@
 |
 */
 
-Route::get('/',[
+Route::get('/', [
     'as' => 'home',
     'uses' => 'PagesController@home'
 ]);
 
 //Open Registration
-Route::get('register',[
+Route::get('register', [
     'as' => 'register_path',
     'uses' => 'RegistrationController@create'
 ]);
 
 
 //
-Route::post('register',[
+Route::post('register', [
     'as' => 'register_path',
     'uses' => 'RegistrationController@store'
 ]);
 
-Route::get('login',[
+Route::get('login', [
     'as' => 'login_path',
     'uses' => 'SessionController@create'
 ]);
 
-Route::post('login',[
+Route::post('login', [
     'as' => 'login_path',
     'uses' => 'SessionController@store'
 ]);
@@ -42,7 +42,7 @@ Route::post('login',[
 /*
  * Statuses
  */
-Route::get('statuses',[
+Route::get('statuses', [
     'as' => 'statuses_path',
     'uses' => 'StatusController@index'
 ]);
@@ -59,12 +59,16 @@ Route::post('statuses', [
     'uses' => 'StatusController@store'
 ]);
 
+Route::post('status/{id}/comments', [
+    'as' => 'comment_path',
+    'uses' => 'CommentsController@store'
+]);
 /*
  * Users
  */
 Route::get('users', [
     'as' => 'users_path',
-    'uses' =>'UsersController@index'
+    'uses' => 'UsersController@index'
 ]);
 
 Route::get('@{username}', [
@@ -82,9 +86,10 @@ Route::post('follows', [
 ]);
 
 Route::delete('follows/{id}', [
-    'as'   => 'follows_path',
+    'as' => 'follows_path',
     'uses' => 'FollowsController@destroy'
 ]);
+
 
 /*
  * Reset

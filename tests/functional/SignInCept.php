@@ -7,6 +7,6 @@ $I->wantTo('login to my Larabook account');
 $I->signIn();
 
 $I->seeInCurrentUrl('statuses');
-$I->see('Post a Status');
+$I->see('Welcome back!');
 
 //$I->assertTrue(Auth::check());
