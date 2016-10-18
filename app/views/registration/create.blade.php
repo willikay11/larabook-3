@@ -12,6 +12,7 @@
         </div>
     @endif
 
+    
     {{ Form::open(['route' => 'register_path']) }}
      <div class="form-group">
          {{ Form::label('username', 'Username:') }}
